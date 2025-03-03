@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Disease Information{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center text-success fw-bold">🌿 HOME RECIPIES USED FOR SOME DISEASES</h1>
+
+    <!-- Disease Selection Form -->
+    <div class="card shadow-lg p-4 mt-4">
+        <h4 class="fw-bold text-center">🔍 Select a problem</h4>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="disease" class="form-label fw-bold">Problem</label>
+                <select name="disease" class="form-select shadow-sm">
+                    {% for disease in diseases %}
+                    <option value="{{ disease.id }}">{{ disease.disease_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100">View Details</button>
+        </form>
+    </div>
+
+    <!-- Disease Details -->
+    {% if selected_disease %}
+    <div class="card shadow-lg p-4 mt-5">
+        <h3 class="text-center text-primary fw-bold">{{ selected_disease.disease_name }}</h3>
+        <p><strong>📖 Description:</strong> {{ selected_disease.description }}</p>
+        <p><strong>🌿 Plants Used:</strong> {{ selected_disease.comabination }}</p>
+        <p><strong>🌿 Recipies:</strong> {{ selected_disease.combination_description }}</p>
+
+        <!-- Yoga Recommendations -->
+        <h4 class="text-center text-warning mt-4">🌿 Plants can be used</h4>
+        <div class="row text-center">
+            <!-- Beginner Yoga -->
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3">
+                    <h5 class="fw-bold"></h5>
+                    
+                    <img src="{{ url_for('static', filename='plant/' + selected_disease.image_name_one) }}" 
+                         class="img-fluid rounded shadow-lg" 
+                         alt="Beginner Yoga">
+                </div>
+            </div>
+
+            <!-- Moderate Yoga -->
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3">
+                    <h5 class="fw-bold"></h5>
+                    <img src="{{ url_for('static', filename='plant/' + selected_disease.image_name_two) }}" 
+                         class="img-fluid rounded shadow-lg" 
+                         alt="Moderate Yoga">
+                </div>
+            </div>
+
+            <!-- Advanced Yoga -->
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3">
+                    <h5 class="fw-bold"></h5>
+                    <img src="{{ url_for('static', filename='plant/' + selected_disease.image_name_three) }}" 
+                         class="img-fluid rounded shadow-lg" 
+                         alt="Advanced Yoga">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+</div>
+<!-- Disclaimer Section -->
+<div class="alert alert-warning text-center mt-4 shadow-sm" style="border-left: 5px solid #ffcc00;">
+    ⚠️ <strong>Disclaimer:</strong> The information provided on this page is for general knowledge only. 
+    These home remedies are not a substitute for professional medical advice, diagnosis, or treatment. 
+    Always seek the guidance of a qualified healthcare provider for medical concerns.The above Recipies 
+    have been taken from the book AYURVEDIC HOME REMEDIES BY VASANTH V LAD.
+    <a href="https://archive.org/details/TheCompleteBookOfAyurvedicHomeRemedies/" target="_blank" class="fw-bold text-primary">
+        CLICK TO VIEW THE BOOK
+    </a>
+</div>
+<div style="height: 80px;"></div>
+
+<!-- Custom Styling -->
+<style>
+    .card {
+        background: #f9f9f9;
+        border-radius: 10px;
+    }
+
+    .card img {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .card img:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 8px 16px rgba(0, 128, 0, 0.3);
+    }
+</style>
+
+{% endblock %}

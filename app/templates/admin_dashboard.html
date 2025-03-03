@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5" style="background-color: #e9f5e9; min-height: 100vh;">
+    <h1 class="text-center mb-5" style="font-weight: bold; color: #2c6e49;">Admin Dashboard</h1>
+
+    <!-- User Statistics Section -->
+    <div class="d-flex justify-content-center">
+        <div class="table-responsive w-75">
+            <table class="table table-hover text-center shadow-lg bg-white rounded" style="font-size: 1.2rem;">
+                <thead style="background-color: #2c6e49; color: white;">
+                    <tr>
+                        <th>Category</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #a7c4a0;">
+                        <td>Active Users</td>
+                        <td class="fw-bold">{{ active_users }}</td>
+                    </tr>
+                    <tr style="background-color: #c3e6cb;">
+                        <td>Inactive Users</td>
+                        <td class="fw-bold">{{ inactive_users }}</td>
+                    </tr>
+                    <tr style="background-color: #d4edda;">
+                        <td>Archived Users</td>
+                        <td class="fw-bold">{{ archived_users }}</td>
+                    </tr>
+                    <tr style="background-color: #e6f4e6;">
+                        <td>Deleted Users</td>
+                        <td class="fw-bold">{{ deleted_users }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Leaderboard for Top Users -->
+    <!-- Top Users Bar Chart -->
+<div class="row mt-5 justify-content-center">
+    <div class="col-lg-8">
+        <div class="p-4 border rounded shadow-lg bg-white">
+            <h4 class="text-center" style="color: #2c6e49;">Top Users by Predictions</h4>
+            <canvas id="topUsersBarChart"></canvas>
+        </div>
+    </div>
+</div>
+
+    <!-- Pie Chart for Predictions by Type -->
+    
+</div>
+
+<!-- Chart.js & Animation Integration -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Sample Data (Replace with dynamic data)
+    const topUsersData = JSON.parse('{{ top_users_data | tojson | safe }}');
+
+    // Extract Labels and Data
+    const userNames = topUsersData.labels; // Usernames
+    const predictionCounts = topUsersData.values; // Number of Predictions
+
+    // Bar Chart Initialization
+    new Chart(document.getElementById("topUsersBarChart"), {
+        type: 'bar',
+        data: {
+            labels: userNames,
+            datasets: [{
+                label: 'Predictions',
+                data: predictionCounts,
+                backgroundColor: userNames.map((_, index) => `hsl(${index * 40}, 60%, 50%)`),
+                borderColor: userNames.map((_, index) => `hsl(${index * 40}, 60%, 40%)`),
+                borderWidth: 2,
+                hoverBackgroundColor: userNames.map((_, index) => `hsl(${index * 40}, 70%, 40%)`)
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: false }, // Hide legend
+                tooltip: { mode: 'index', intersect: false }
+            },
+            scales: {
+                x: { title: { display: true, text: 'Users' } },
+                y: { title: { display: true, text: 'Number of Predictions' }, beginAtZero: true }
+            }
+        }
+    });
+</script>
+{% endblock %}
