@@ -124,10 +124,11 @@
                         <li class="nav-item"><a class="nav-link btn btn-danger text-white" href="/logout">Logout</a></li>
                     {% elif user %}
                         {% if user.status == 'active' %}
-                            <li class="nav-item"><a class="nav-link" href="/herbal_plants">Search</a></li>
+                            
                             <li class="nav-item"><a class="nav-link" href="/api/predict/herbal">Mediscan</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/diseases">Diseases</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/feedback">Feedback</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/herbal_plants">Search</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/diseases">Home Remedies</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/feedback"></a></li>
 
                             <!-- User Dropdown with Home and Logout -->
                             <li class="nav-item dropdown">
