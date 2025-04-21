@@ -1,31 +1,30 @@
 {% extends 'base.html' %}
-{% block title %}Medicinal Plants{% endblock %}
+{% block title %}Plantify Wonders{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center fw-bold text-success">🌿 Medicinal Plants 🌿</h1>
-    <p class="text-center text-muted">Explore medicinal plants, their benefits, and uses.</p>
+<div class="container mt-4 text-center">
+    <h1 class="fw-bold text-success mb-2">🍃 Plantify Image Gallery 🍃</h1>
+    <p class="text-muted mb-3"></p>
 
-    <!-- Search Bar -->
-    <div class="d-flex justify-content-center">
-        <div class="input-group mb-4 w-50">
-            <span class="input-group-text bg-success text-white"><i class="bi bi-search"></i></span>
-            <input type="text" id="plantSearch" class="form-control rounded-pill" placeholder="Search for a plant..." onkeyup="searchPlants()">
+    <!-- Search Bar - Positioned at the Center -->
+    <div class="d-flex justify-content-center mb-3">
+        <div class="input-group search-bar">
+            <input type="text" id="plantSearch" class="form-control rounded-pill shadow-sm" placeholder="Search for a plant..." onkeyup="searchPlants()">
+            <span class="input-group-text bg-success text-white rounded-pill search-icon"><i class="bi bi-search-heart"></i></span>
         </div>
     </div>
 
-    <!-- Plants Grid -->
-    <div class="row justify-content-center" id="plantCards">
+    <!-- Grid Layout -->
+    <div class="plant-grid" id="plantGrid">
         {% for plant in plants %}
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4 plant-card">
-            <div class="card shadow-lg border-0 rounded-3 animate-card">
-                <img src="{{ url_for('static', filename='plant/' + plant.image_name) }}" class="card-img-top img-fluid" alt="{{ plant.common_name }}">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold text-success">{{ plant.description }}</h5>
-                    <a href="{{ url_for('main.herbal_plant_detail', predicted_label=plant.description) }}" class="btn btn-outline-success btn-sm shadow-sm">View Details</a>
-
+        <div class="plant-item text-center">
+            <a href="{{ url_for('main.herbal_plant_detail', predicted_label=plant.description) }}" class="text-decoration-none">
+                <div class="p-2">
+                    <img src="{{ url_for('static', filename='plant/' + plant.image_name) }}" 
+                         class="img-fluid rounded-circle animate-card plant-img">
+                    <p class="fw-bold text-success mt-2">{{ plant.description }}</p>
                 </div>
-            </div>
+            </a>
         </div>
         {% endfor %}
     </div>
@@ -36,16 +35,16 @@
 <script>
     function searchPlants() {
         let input = document.getElementById("plantSearch").value.toLowerCase();
-        let cards = document.querySelectorAll(".plant-card");
+        let items = document.querySelectorAll(".plant-item");
 
-        cards.forEach(card => {
-            let name = card.querySelector(".card-title").innerText.toLowerCase();
+        items.forEach(item => {
+            let name = item.querySelector("p").innerText.toLowerCase();
             if (name.includes(input)) {
-                card.style.display = "block";
-                card.classList.add("fade-in");
+                item.style.display = "block";
+                item.classList.add("fade-in");
             } else {
-                card.style.display = "none";
-                card.classList.remove("fade-in");
+                item.style.display = "none";
+                item.classList.remove("fade-in");
             }
         });
     }
@@ -53,22 +52,54 @@
 
 <!-- Custom Styles -->
 <style>
-    /* Hover Animation for Cards */
-    .animate-card {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-    
-    .animate-card:hover {
-        transform: scale(1.07);
-        box-shadow: 0px 10px 18px rgba(0, 128, 0, 0.3);
+    /* Grid Layout for Full Page */
+    .plant-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        justify-content: center;
+        padding: 20px;
     }
 
-    /* Image Styling */
-    .card img {
+    /* Search Bar Styling */
+    .search-bar {
+        width: 300px;
+        position: relative;
+    }
+    
+    .search-bar input {
+        padding-left: 40px;
+        border: 2px solid #28a745;
+        transition: all 0.3s ease-in-out;
+    }
+    
+    .search-bar input:focus {
+        box-shadow: 0px 4px 10px rgba(40, 167, 69, 0.3);
+        border-color: #218838;
+    }
+    
+    .search-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: none;
+    }
+
+    /* Plant Image Styling */
+    .plant-img {
+        width: 200px;
         height: 200px;
         object-fit: cover;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-radius: 50%;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    /* Hover Animation */
+    .plant-img:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 10px 18px rgba(0, 128, 0, 0.3);
     }
 
     /* Smooth Fade-in Effect */
@@ -79,6 +110,16 @@
     @keyframes fadeIn {
         from { opacity: 0; transform: scale(0.9); }
         to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .plant-img { max-width: 180px; }
+        .search-bar { width: 100%; }
+    }
+
+    @media (max-width: 576px) {
+        .plant-img { max-width: 150px; }
     }
 </style>
 {% endblock %}

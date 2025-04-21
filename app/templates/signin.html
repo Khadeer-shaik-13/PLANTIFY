@@ -2,62 +2,60 @@
 {% block title %}Sign In{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
-    <div class="col-md-5">
-        <div class="card shadow-lg rounded">
-            
-            <!-- Card Header with Stylish Gradient -->
-            <div class="card-header text-white text-center fw-bold py-3"
-                style="background: linear-gradient(90deg, #2F5233, #6CA965); border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                <h3>Sign In</h3>
-            </div>
-
-            <!-- Card Body -->
-            <div class="card-body">
-                <form action="/signin" method="post">
-                    
-                    <!-- Email Field -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label fw-bold text-dark">Email</label>
-                        <input type="email" class="form-control border-success shadow-sm" id="email" name="email" required>
-                    </div>
-
-                    <!-- Password Field with Toggle -->
-                    <div class="mb-3 position-relative">
-                        <label for="password" class="form-label fw-bold text-dark">Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control border-success shadow-sm" id="password" name="password" required>
-                            <span class="input-group-text bg-light border-success" onclick="togglePassword()" style="cursor: pointer;">
-                                <i class="bi bi-eye-slash" id="toggleIcon"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Remember Me & Forgot Password -->
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="rememberMe">
-                            <label class="form-check-label text-dark" for="rememberMe">Remember Me</label>
-                        </div>
-                        <a href="/forgot_password" class="text-success fw-bold">Forgot Password?</a>
-                    </div>
-
-                    <!-- Submit Button with Hover Effect -->
-                    <button type="submit" class="btn text-white w-100 fw-bold shadow-sm"
-                        style="background: linear-gradient(90deg, #2F5233, #6CA965); transition: 0.3s ease;">
-                        Sign In
-                    </button>
-                </form>
-            </div>
-
-            <!-- Footer -->
-            <div class="card-footer text-center bg-light">
-                <p class="mb-0 text-dark">Don't have an account? 
-                    <a href="/signup" class="text-success fw-bold">Sign Up</a>
-                </p>
-            </div>
-
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh; background: #06690e;">
+    <div class="col-md-5 p-4 rounded shadow-lg bg-white">
+        
+        <!-- Stylish Header -->
+        <div class="text-center mb-4">
+            <h2 class="fw-bold" style="color: #1e5631;">Welcome Back</h2>
+            <p class="text-muted">Sign in to continue</p>
         </div>
+
+        <!-- Sign In Form -->
+        <form action="/signin" method="post">
+            
+            <!-- Email Input -->
+            <div class="mb-3">
+                <label for="email" class="form-label fw-semibold text-dark">Email Address</label>
+                <input type="email" class="form-control border-0 rounded-3 shadow-sm p-3" 
+                       id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <!-- Password Input with Toggle -->
+            <div class="mb-3">
+                <label for="password" class="form-label fw-semibold text-dark">Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control border-0 rounded-3 shadow-sm p-3" 
+                           id="password" name="password" required placeholder="Enter your password">
+                    <button class="btn btn-outline-secondary border-0 shadow-sm" type="button" onclick="togglePassword()">
+                        <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label text-dark fw-medium" for="rememberMe">Remember Me</label>
+                </div>
+                <a href="/forgot_password" class="text-success fw-semibold">Forgot Password?</a>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn text-white w-100 fw-bold shadow-sm rounded-3 py-3"
+                style="background: linear-gradient(90deg, #1e5631, #4caf50); transition: 0.3s ease;">
+                Sign In
+            </button>
+        </form>
+
+        <!-- Footer -->
+        <div class="text-center mt-4">
+            <p class="mb-0 text-dark">New here? 
+                <a href="/signup" class="text-success fw-semibold">Create an account</a>
+            </p>
+        </div>
+
     </div>
 </div>
 

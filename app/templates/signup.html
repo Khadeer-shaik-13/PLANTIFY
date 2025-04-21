@@ -2,90 +2,65 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="height: auto; min-height: 100vh;">
-    <div class="col-md-6">
-        <div class="card shadow-lg rounded">
+<div class="d-flex justify-content-center align-items-center" style="height: auto; min-height: 100vh; background: linear-gradient(135deg, #2F5233, #6CA965);">
+    <div class="col-md-5 p-5 bg-white rounded-3 shadow-lg text-center">
+        
+        <!-- Page Title -->
+        <h2 class="fw-bold mb-4 text-success">Create an Account</h2>
+        
+        <!-- Sign Up Form -->
+        <form action="/signup" method="post" onsubmit="showLoading()" class="needs-validation" novalidate>
             
-            <!-- Card Header with Stylish Gradient -->
-            <div class="card-header text-white text-center fw-bold py-3"
-                style="background: linear-gradient(90deg, #2F5233, #6CA965); border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                <h3>Sign Up</h3>
+            <!-- Full Name -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control border-success shadow-sm" id="name" name="name" placeholder="John Doe" required>
+                <label for="name" class="text-dark">Full Name</label>
             </div>
 
-            <!-- Card Body -->
-            <div class="card-body">
-                <form action="/signup" method="post" onsubmit="showLoading()">
-                    
-                    <!-- Full Name -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label fw-bold text-dark">Full Name</label>
-                        <input type="text" class="form-control border-success shadow-sm" id="name" name="name" required>
-                    </div>
-
-                    <!-- Email Field -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label fw-bold text-dark">Email</label>
-                        <input type="email" class="form-control border-success shadow-sm" id="email" name="email" required>
-                    </div>
-
-                    <!-- Password Field with Toggle -->
-                    <div class="mb-3 position-relative">
-                        <label for="password" class="form-label fw-bold text-dark">Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control border-success shadow-sm" id="password" name="password" required>
-                            <span class="input-group-text bg-light border-success" onclick="togglePassword()" style="cursor: pointer;">
-                                <i class="bi bi-eye-slash" id="toggleIcon"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Number -->
-                    <div class="mb-3">
-                        <label for="mobile" class="form-label fw-bold text-dark">Mobile</label>
-                        <input type="text" class="form-control border-success shadow-sm" id="mobile" name="mobile" required>
-                    </div>
-
-                    <!-- Date of Birth -->
-                    <div class="mb-3">
-                        <label for="dob" class="form-label fw-bold text-dark">Date of Birth</label>
-                        <input type="date" class="form-control border-success shadow-sm" id="dob" name="dob" required>
-                    </div>
-
-                    <!-- Security Question -->
-                    <div class="mb-3">
-                        <label for="security_question" class="form-label fw-bold text-dark">Security Question</label>
-                        <input type="text" class="form-control border-success shadow-sm" id="security_question" name="security_question" required>
-                    </div>
-
-                    <!-- Security Answer -->
-                    <div class="mb-3">
-                        <label for="security_answer" class="form-label fw-bold text-dark">Security Answer</label>
-                        <input type="text" class="form-control border-success shadow-sm" id="security_answer" name="security_answer" required>
-                    </div>
-
-                    <!-- Submit Button with Hover Effect -->
-                    <button type="submit" class="btn text-white w-100 fw-bold shadow-sm" id="submitBtn"
-                        style="background: linear-gradient(90deg, #2F5233, #6CA965); transition: 0.3s ease;">
-                        Sign Up
-                    </button>
-
-                    <!-- Loading Spinner -->
-                    <div class="text-center mt-3 d-none" id="loadingSpinner">
-                        <div class="spinner-border text-success" role="status">
-                            <span class="visually-hidden">Processing...</span>
-                        </div>
-                    </div>
-                </form>
+            <!-- Email Field -->
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control border-success shadow-sm" id="email" name="email" placeholder="name@example.com" required>
+                <label for="email" class="text-dark">Email</label>
             </div>
 
-            <!-- Footer -->
-            <div class="card-footer text-center bg-light">
-                <p class="mb-0 text-dark">Already have an account? 
-                    <a href="/signin" class="text-success fw-bold">Sign In</a>
-                </p>
+            <!-- Password Field with Toggle -->
+            <div class="form-floating mb-3 position-relative">
+                <input type="password" class="form-control border-success shadow-sm" id="password" name="password" placeholder="Password" required>
+                <label for="password" class="text-dark">Password</label>
+                <span class="position-absolute end-0 top-50 translate-middle-y me-3" onclick="togglePassword()" style="cursor: pointer;">
+                    <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                </span>
             </div>
 
-        </div>
+            <!-- Security Question -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control border-success shadow-sm" id="security_question" name="security_question" placeholder="Your first pet's name?" required>
+                <label for="security_question" class="text-dark">Security Question</label>
+            </div>
+
+            <!-- Security Answer -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control border-success shadow-sm" id="security_answer" name="security_answer" placeholder="Answer" required>
+                <label for="security_answer" class="text-dark">Security Answer</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn text-white w-100 fw-bold shadow-sm" id="submitBtn" style="background: #2F5233; transition: 0.3s ease; border-radius: 30px;">
+                Sign Up
+            </button>
+
+            <!-- Loading Spinner -->
+            <div class="text-center mt-3 d-none" id="loadingSpinner">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Processing...</span>
+                </div>
+            </div>
+        </form>
+
+        <!-- Footer -->
+        <p class="mt-3">Already have an account? 
+            <a href="/signin" class="text-success fw-bold">Sign In</a>
+        </p>
     </div>
 </div>
 
